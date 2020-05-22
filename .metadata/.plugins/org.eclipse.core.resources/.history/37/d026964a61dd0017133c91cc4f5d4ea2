@@ -1,0 +1,17 @@
+def binary_search(lst, key):
+    low = 0
+    high = len(lst) - 1
+    while high >= low:
+        mid = low + (high - low) // 2
+        print(mid)
+        if key < lst[mid]:
+            high = mid - 1
+            print(high)
+        elif key > lst[mid]:
+            low = mid + 1
+            print(low)
+        else:
+            return mid
+    return -low - 1
+
+print(binary_search(['G', 'F', 'E', 'D', 'C', 'B', 'A'], 'C'))

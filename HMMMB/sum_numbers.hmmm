@@ -1,0 +1,11 @@
+0	read r1		#read n
+1 	setn r2 0	#i = 0
+2 	setn r3 0 	#sum = 0
+3	jeqzn r1 9	#if n == 0, break loop
+4 	addn r2 1	#i = i + 1
+5	write r2	#print i
+6	add r3 r3 r2	#sum = sum + i
+7	addn r1 -1	#n = n - 1
+8 	jumpn 3		#jump back to loop condition
+9 	write r3	#print sum
+10 	halt

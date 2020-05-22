@@ -1,0 +1,57 @@
+'''
+Created on Oct 31, 2017
+
+@author: bpatton
+'''
+
+def mapSqr(L):
+    result = []
+    for x in L:
+        result.append(x**2)        
+    return result
+
+def find_max(lst):
+    if lst == []:
+            return None
+    max_val = lst[0]
+    for x in lst:
+        if x > max_val:
+            max_val = x
+    return max_val      
+
+def find_min_max(lst):
+    if lst == []:
+        return None
+    max_val = min_val = lst[0]
+    for x in lst:
+        if x > max_val:
+            max_val = x 
+        elif x < min_val:
+            min_val = x 
+    return min_val, max_val
+
+    
+def sequential_search(lst, key):
+    for i in range(len(lst)):
+        if lst[i] == key:
+            return i
+    return -1
+    
+def shallow_copy(L):
+    new_list = []
+    for x in L:
+        new_list.append(x)
+    return new_list
+L = [1,2,3]
+M = shallow_copy(L)
+M[2] = 33
+print(L)
+print(M)
+
+S = [[1, 2], [3, 4], [5, 6]]
+T = shallow_copy(S)
+T[2][1] = 66
+print(S)
+    
+    
+    

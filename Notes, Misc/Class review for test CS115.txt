@@ -1,0 +1,9 @@
+Constructor for python = __init__
+self.__name
+Base class of all classes = object
+Subclass same name as Superclass = overriding
+Operator overloading = giving new meaning to operators (+ - / *)
+
+Constructor Chaining:
+	when the constructor of the subclass calls the constructor of the superclass
+

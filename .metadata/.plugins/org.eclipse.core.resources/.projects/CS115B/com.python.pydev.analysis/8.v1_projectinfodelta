@@ -1,0 +1,25 @@
+INSTUPdate
+C:\Users\bpatton\Documents\CS FALL 2017\CS115B\date.py
+INFOS:&&3|1|2|0&&1|3|2|0&&2|4|2|3&&3|5|2|6&&3|7|2|6&&3|8|2|6&&2|9|2|3&&2|10|2|3&&2|11|2|3&&2|12|2|3&&2|13|2|3&&3|7|2|14&&3|7|2|14&&3|7|2|14&&3|5|2|14&&2|15|2|3&&3|7|2|16&&3|7|2|16&&3|5|2|16&&3|7|2|16&&2|17|2|3&&2|18|2|3&&2|19|2|3&&2|20|2|3&&2|21|2|3&&2|22|2|3
+date=2
+Date.__init__=6
+subNDays=18
+year=8
+__str__=9
+tomorrow=13
+isLeapYear=10
+diff=21
+dow=22
+Date=3
+isBefore=19
+Date.yesterday=16
+yesterday=15
+DAYS_IN_MONTH=1
+month=5
+Date.tomorrow=14
+addNDays=17
+equals=12
+copy=11
+__init__=4
+day=7
+isAfter=20

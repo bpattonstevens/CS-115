@@ -1,0 +1,50 @@
+#North
+
+0 *x** -> E 2
+
+0 xE** -> N 0
+
+0 NEx* -> W 3
+
+0 NEWx -> S 1
+
+#South
+
+1 **x* -> W 3
+
+1 **Wx -> S 1
+
+1 *xWS -> E 2
+
+1 xEWS -> N 0
+
+#East
+2 ***x -> S 1
+
+2 *x*S -> E 2
+
+2 xE*S -> N 0
+
+2 NExS -> W 3
+
+#West
+
+3 x*** -> N 0
+
+3 N*x* -> W 3
+
+3 N*Wx -> S 1
+
+3 NxWS -> E 2
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+'''
+Created on Oct 11, 2017
+
+@author: bpatton
+'''
+def fast_change(amount, coins):
+    '''Takes an amount and a list of coin denominations as input.
+    Returns the number of coins required to total the given amount.
+    Use memoization to improve performance.'''
+    def fast_change_helper(amount, coins, memo):
+        if (amount, coins) in memo:
+            return memo[(amount, coins)]
+        if amount == 0:
+            result = 0
+        if coins == ():
+            result = float("inf")
+        if coins[0] > amount:
+            return fast_change_helper(amount, coins[1:], memo)
+        else:
+            lose_it = fast_change_helper(amount, coins[1:], memo)
+            use_it = 1 + fast_change_helper(amount - coins[0], coins, memo)
+            result = min(use_it, lose_it)
+            memo[(amount, coins)] = result
+            
+        return result
+            
+        
+        
+    return fast_change_helper(amount, tuple(coins), {})

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;CS115B/hw12.py&apos;" deleteContents="false" description="Delete resource &apos;CS115B/hw12.py&apos;" element1="/CS115B/hw12.py" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1512512886210"/>
+</session>

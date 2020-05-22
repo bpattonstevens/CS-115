@@ -1,0 +1,40 @@
+'''
+Created on Oct 11, 2017
+
+@author: bpatton
+'''
+def fast_change(amount, coins):
+    '''Takes an amount and a list of coin denominations as input.
+    Returns the number of coins required to total the given amount.
+    Use memoization to improve performance.'''
+    def fast_change_helper(amount, coins, memo):
+        if (amount, coins) in memo:
+            return memo[(amount, coins)]
+        if amount == 0:
+            result = 0
+        if coins == ():
+            result = float("inf")
+        if coins[0] > amount:
+            return fast_change_helper(amount, coins[1:], memo)
+        else:
+            lose_it = fast_change_helper(amount, coins[1:], memo)
+            use_it = 1 + fast_change_helper(amount - coins[0], coins, memo)
+            result = min(use_it, lose_it)
+            memo[(amount, coins)] = result
+            
+        return result
+    
+def rod_cutter(values, n):
+    if values == [] or n<=0:
+        return 0
+    lose_it = rod_cutter(values[1:], n)
+    if values[0][0] > n:
+        return lose_it
+    use_it = rod_cutter(values, n - values[0][0]) + values[0][1]
+    return max(lose_it, use_it)
+print(rod_cutter([[1, 1], [2, 3]], 4))
+            
+
+        
+        
+    return fast_change_helper(amount, tuple(coins), {})

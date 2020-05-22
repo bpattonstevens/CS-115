@@ -1,0 +1,3 @@
+Linear Recursion occurs when there is a line to be executed after the
+recursive call.  If there is no further line after the recursive call, 
+it is Tail End Recursion.

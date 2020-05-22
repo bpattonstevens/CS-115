@@ -1,0 +1,40 @@
+'''
+Created on Sep 12, 2017
+
+@author: bpatton
+'''
+
+from cs115 import map, reduce
+
+
+def tower(n):
+    """Computes 2^(2^(2...)) with n twos, using recursion."""
+    if n == 0:
+        return 1
+    else:
+        return 2**(tower(n - 1))
+
+print(map(tower, range(5)))
+
+def tower_reduce(n):
+    def power(x, y):
+        return y ** x
+    if n == 0:
+        return 1
+    return reduce(power, [2] * n)
+
+
+print(map(tower_reduce, range(5)))
+
+def length(lst):
+    """Returns the length of lst"""
+    if lst == []:
+        return 0
+    return length(lst[1:])
+
+print(length([1, 2, 3]))
+
+
+    
+    
+

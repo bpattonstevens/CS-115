@@ -1,0 +1,214 @@
+'''
+Created on Dec 6, 2017
+
+@author: danba
+I pledge my honor that I have abided by the Stevens Honor System
+'''
+
+class Board(object):
+    
+    def __init__(self, width=7, height=6):
+        self.__width = width
+        self.__height = height
+        self.__board = []
+        for row in range(self.__height):
+            newrow = []
+            for col in range(self.__width):
+                newrow += [' ']
+            self.__board += [newrow]
+            
+    @property
+    def width(self):
+        return self.__width
+    
+    @property
+    def height(self):
+        return self.__height
+        
+    def __str__(self):
+        result = ''
+        for row in range(self.__height):
+            result += '|'
+            for col in range(self.__width):
+                result += self.__board[row][col] + '|'
+            result += '\n'
+        result += (2 * self.__width + 1) * '-'
+        result += '\n '
+        for col in range(self.__width):
+            result += str(col) + ' '
+        return result
+    
+    def allowsMove(self, col):
+        """Returns True if the given column isn't empty. Returns False otherwise."""
+        if 0 <= col < self.__width:
+            if self.__board[0][col] == ' ':
+                return True
+        return False
+    
+    def addMove(self, col, ox):
+        """Adds the piece given by ox to the column"""
+        if not ox == 'O' and not ox == 'X':
+            raise TypeError('Move must be either an X or an O')
+        if self.allowsMove(col):
+            for row in range(self.__height - 1, -1, -1):
+                if self.__board[row][col] == ' ':
+                    self.__board[row][col] = ox
+                    break
+                
+    def delMove(self, col):
+        """Removes the highest piece of a column"""
+        for row in range(self.__height):
+            if self.__board[row][col] == 'O' or self.__board[row][col] == 'X':
+                self.__board[row][col] = ' '
+                break
+                
+    def setBoard(self, moveString):
+        """takes in a string of columns and places alternating checkers in those columns, starting with 'X'
+        For example, call b.setBoard('012345') to see 'X's and 'O's alternate on the bottom row, or b.setBoard('000000') to
+        see them alternate in the left column.moveString must be a string of integers"""
+        
+        nextCh = 'X' # start by playing 'X'
+        for colString in moveString:
+            col = int(colString)
+            if 0 <= col < self.width:
+                self.addMove(col, nextCh)
+            if nextCh == 'X': nextCh = 'O'
+            else: nextCh = 'X'
+    
+    def winsPiece(self, row, col):
+        """Checks if the piece at the given coordinate is a part of a winning line"""
+        if self.__board[row][col] == ' ':
+            return False
+        ox = self.__board[row][col]
+        line = 1
+        row_cur = row + 1
+        col_cur = col
+        while line < 4 and row_cur < self.__height: #Checks vertically
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur += 1
+        row_cur = row - 1
+        while line < 4 and row_cur >= 0:
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur -= 1
+        if line >= 4:
+            return True
+        line = 1
+        row_cur = row
+        col_cur = col + 1
+        while line < 4 and col_cur < self.__width: #Checks horizontally
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            col_cur += 1
+        col_cur = col - 1
+        while line < 4 and col_cur >= 0:
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            col_cur -= 1
+        if line >= 4:
+            return True
+        line = 1
+        row_cur = row + 1
+        col_cur = col + 1
+        while line < 4 and row_cur < self.__height and col_cur < self.__width: #Checks diagonally one way
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur += 1
+            col_cur += 1
+        row_cur = row - 1
+        col_cur = col - 1
+        while line < 4 and row_cur >= 0 and col_cur >= 0:
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur -= 1
+            col_cur -= 1
+        if line >= 4:
+            return True
+        line = 1
+        row_cur = row - 1
+        col_cur = col + 1
+        while line < 4 and row_cur >= 0 and col_cur < self.__width: #Checks diagonally the other
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur -= 1
+            col_cur += 1
+        row_cur = row + 1
+        col_cur = col - 1
+        while line < 4 and row_cur < self.__height and col_cur >= 0:
+            if self.__board[row_cur][col_cur] == ox:
+                line += 1
+            else:
+                break
+            row_cur += 1
+            col_cur -= 1
+        if line >= 4:
+            return True
+        return False
+            
+    def winsFor(self, ox):
+        """Checks if the current board wins the game for ox"""
+        for row in range(self.__height):
+            for col in range(self.__width):
+                if self.__board[row][col] == ox:
+                    if self.winsPiece(row, col):
+                        return True
+        return False
+    
+    def hostGame(self):
+        """Runs a game of connect 4 using self as a board"""
+        print('Welcome to connect 4!')
+        while(True):
+            ox = 'X'
+            print(str(self))
+            move = int(input('X\'s choice: '))
+            if not 0 <= move < self.__width:
+                raise ValueError('Must choose a valid column')
+            self.addMove(move, ox)
+            if self.winsFor(ox):
+                break
+            filled_col = 0
+            for col in range(self.__width):
+                if not self.allowsMove(col):
+                    filled_col += 1
+            if filled_col == self.__width:
+                ox = ' '
+                break
+            print(str(self))
+            ox = 'O'
+            move = int(input('O\'s choice: '))
+            if not 0 <= move < self.__width:
+                raise ValueError('Must choose a valid column')
+            self.addMove(move, ox)
+            if self.winsFor(ox):
+                break
+            filled_col = 0
+            for col in range(self.__width):
+                if not self.allowsMove(col):
+                    filled_col += 1
+            if filled_col == self.__width:
+                ox = ' '
+                break
+            print(str(self))
+        print(str(self))
+        if ox == ' ':
+            print('It\'s a tie!')
+        else:
+            print(ox + ' wins -- Congratulations!')
+
+b = Board()
+b.hostGame()            

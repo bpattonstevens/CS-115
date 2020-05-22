@@ -1,0 +1,6 @@
+Compressed block size means the amount of numbers in each section (takes the numbers and separates them by groups of 5).
+Inputted 64 zeros, and got the numerical form of how many zeros were inputted.
+Next fct counted the values of the ones and zeros to give the numerical value in list form.
+Takes amount of similar strings and groups their value together in a length 5 block of 0's and 1's
+Always divisible into chunks of whatever the compressed block size is.
+Uncompress takes the compressed version of the original input, separates into groups of 5, derives a number from the binary form and returns the decompressed string based on those numbers.

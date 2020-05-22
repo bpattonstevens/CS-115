@@ -1,0 +1,22 @@
+'''
+Created on Sep 12, 2017
+
+@author: Brandon Patton
+
+I pledge my honor that I have abided by the Stevens Honor System.
+
+Brandon Patton
+'''
+
+from cs115 import reduce
+
+n = input('Enter a number: ')
+
+def factorial(n):
+    return n * (n-1)
+
+print (factorial(n))
+
+
+
+

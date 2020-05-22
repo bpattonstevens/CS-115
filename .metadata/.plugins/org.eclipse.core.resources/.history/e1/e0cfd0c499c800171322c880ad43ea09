@@ -1,0 +1,17 @@
+'''
+Created on Nov 13, 2017
+
+@author: bpatton
+'''
+
+class Student(object):
+    def __init__(self, first_name, last_name, sid, gpa):
+        self.__first_name = first_name
+        self.__last_name = last_name
+        self.__sid = sid 
+        self.__gpa = float(gpa)
+
+if __name__ == '__main__':
+    s = Student('Jeremy', 'Doll', '5555555', '1.8')
+    print(s)
+    

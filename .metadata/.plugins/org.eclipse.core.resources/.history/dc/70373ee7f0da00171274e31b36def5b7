@@ -1,0 +1,146 @@
+'''
+Created on Dec 6, 2017
+
+@author: bpatton
+'''
+class Board(object):
+    '''Creates a 2D list containing characters to represent the game area, and
+    two variables to hold the number of rows and number of columns on the board
+    (6 rows and 7 columns being standard). However, it can handle boards of any
+    size.'''
+    def __init__(self, width=7, height=6):
+        '''Takes in two named arguments'''
+        self.__width = width 
+        self.__height = height
+        self.__board = [[' ' for j in range(width)] for i in range(height)] 
+            
+    
+    def __str__(self):
+        A = ''
+        for row in range(self.__height):
+            A += '\n'
+            for col in range(self.__width):
+                A += '|' + self.__board[row][col]
+                if col == self.__width - 1:
+                    A += '|'
+        label = '' 
+        for i in range(self.__width):
+            label += ' ' + str(i)
+            
+        A += '\n' + '--'*self.__width + '-' + '\n' + label
+        
+        return A
+
+    def allowsMove(self, col):
+        if self.__board[0][col] == ' ':
+            return True
+        else:
+            return False
+        
+    def addMove(self, col, ox):
+        r = 0
+        while self.__board[r][col] == ' ' and r < self.__height - 1:
+            r += 1
+        if self.__board[r][col] == ' ':
+            self.__board[r][col] = ox
+        else:
+            self.__board[r - 1][col] = ox
+         
+
+    def setBoard(self, moveString):
+        nextCh = 'X' # start by playing 'X'
+        for colString in moveString:
+            col = int(colString)
+            if 0 <= col <= self.width:
+                self.addMove(col, nextCh)
+            if nextCh == 'X': nextCh = 'O'
+            else: nextCh = 'X'
+    
+    def delMove(self, col):
+        r = 0
+        while self.__board[r][col] == ' ' and r < self.__height - 1:
+            r += 1
+        self.__board[r][col] = ' '
+        
+        
+    def winsFor(self, ox):
+        r = 0
+        c = 0
+        result = None
+        while result != False:
+            while self.__board[r][c] != ox:
+                if c != self.__width - 1:
+                    c += 1
+                elif r != self.__height - 1:
+                    r +=1
+                    c = 0
+                else:
+                    return False        
+            
+            if r < 3 and c == 3:
+                checks = [[self.__board[r][c], self.__board[r][c + 1], self.__board[r][c + 2], self.__board[r][c + 3]], \
+                      [self.__board[r][c], self.__board[r][c - 1], self.__board[r][c - 2], self.__board[r][c - 3]], \
+                      [self.__board[r][c], self.__board[r + 1][c], self.__board[r + 2][c], self.__board[r + 3][c]], \
+                      [self.__board[r][c], self.__board[r + 1][c + 1], self.__board[r + 2][c + 2], self.__board[r + 3][c + 3]], \
+                      [self.__board[r][c], self.__board[r + 1][c - 1], self.__board[r + 2][c - 2], self.__board[r + 3][c - 3]]]   
+            elif r < 3 and c < 3:
+                checks = [[self.__board[r][c], self.__board[r][c + 1], self.__board[r][c + 2], self.__board[r][c + 3]], \
+                      [self.__board[r][c], self.__board[r + 1][c], self.__board[r + 2][c], self.__board[r + 3][c]], \
+                      [self.__board[r][c], self.__board[r + 1][c + 1], self.__board[r + 2][c + 2], self.__board[r + 3][c + 3]]]
+            elif r < 3 and c > 3:
+                checks = [[self.__board[r][c], self.__board[r][c - 1], self.__board[r][c - 2], self.__board[r][c - 3]], \
+                      [self.__board[r][c], self.__board[r + 1][c], self.__board[r + 2][c], self.__board[r + 3][c]], \
+                      [self.__board[r][c], self.__board[r + 1][c - 1], self.__board[r + 2][c - 2], self.__board[r + 3][c - 3]]]
+            elif r >= 3 and c == 3:
+                checks = [[self.__board[r][c], self.__board[r][c + 1], self.__board[r][c + 2], self.__board[r][c + 3]], \
+                      [self.__board[r][c], self.__board[r][c - 1], self.__board[r][c - 2], self.__board[r][c - 3]]]
+            elif r >= 3 and c < 3:
+                checks = [[self.__board[r][c], self.__board[r][c + 1], self.__board[r][c + 2], self.__board[r][c + 3]]]
+            elif r >= 3 and c > 3:
+                checks = [[self.__board[r][c], self.__board[r][c - 1], self.__board[r][c - 2], self.__board[r][c - 3]]]
+            
+            for t in checks:
+                if t == [ox, ox, ox, ox]:
+                    return True
+            
+            if c != self.__width - 1:
+                    c += 1
+            elif r != self.__height - 1:
+                r +=1
+                c = 0
+            else:
+                result = False
+        return result
+
+    def hostGame(self):
+        print('Welcome to Connect Four!')
+        L = []   
+        while len(L) < 7 and self.winsFor('X') == False and self.winsFor('O') == False:
+            for i in self.__board[0]:
+                if i != ' ':
+                    L += i 
+            print(self) 
+            XPlayer = int(input('X, Choose a column: '))
+            while self.allowsMove(XPlayer) == False:
+                XPlayer = int(input('Invalid column, choose another: '))
+            self.addMove(XPlayer, 'X')
+            if self.winsFor('X') == True:
+                print(self)
+                print('Player X wins!')
+                return
+            print(self)
+            OPlayer = int(input('O, Choose a column: '))
+            while self.allowsMove(int(OPlayer)) == False:
+                OPlayer = int(input('Invalid column, choose another: '))
+            self.addMove(OPlayer, 'O')
+            if self.winsFor('O') == True:
+                print(self)
+                print('Player O wins!')
+                return
+        if len(L) == 7:
+            print('The game is a tie.')
+            return
+
+A=Board(4, 4)
+print(A)
+

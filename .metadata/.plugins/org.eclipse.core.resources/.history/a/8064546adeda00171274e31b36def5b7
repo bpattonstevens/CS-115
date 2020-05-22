@@ -1,0 +1,121 @@
+'''
+Created on Dec 5, 2017
+
+@author: bpatton
+
+I pledge my honor that I have abided by the Honor System.
+
+Brandon Patton
+''' 
+
+class Board(object):
+    def __init__(self, width = 7, height = 6):
+        self.__width = width
+        self.__height = width
+        self.__board = [[' ' for w in range(width)] for h in range(height)]
+    
+    def __str__(self):
+        A = ''
+        for row in range(self.__height):
+            A += '\n'
+            for col in range(self.__width):
+                A += '|' + self.__board[row][col]
+                if col == self.__width - 1:
+                    A += '|'
+        nums = ''
+        for i in range(self.__width):
+            nums += ' ' + str(i)
+            
+        A += '\n' + '--'*self.__width + '-' + '\n' + nums
+        
+        return A 
+    
+    def allowsMove(self, col):
+        if self.__board[0][col] == ' ':
+            return True
+        else:
+            return False
+
+    def addMove(self, col, ox):
+        r = 0
+        while r < self.__height - 1 and self.__board[r][col] == ' ':
+            r += 1
+        if self.__board[r][col] == ' ':
+            self.__board[r][col] = ox
+        else:
+            self.__board[r - 1][col] = ox
+            
+    def setBoard( self, moveString ):
+        """ takes in a string of columns and places
+        alternating checkers in those columns,
+        starting with 'X'
+        For example, call b.setBoard('012345')
+        to see 'X's and 'O's alternate on the
+        bottom row, or b.setBoard('000000') to
+        see them alternate in the left column.
+        moveString must be a string of integers"""
+        nextCh = 'X' # start by playing 'X'
+        for colString in moveString:
+            col = int(colString)
+            if 0 <= col <= self.width:
+                self.addMove(col, nextCh)
+            if nextCh == 'X': nextCh = 'O'
+            else: nextCh = 'X'
+ 
+    def delMove(self, col):
+        r = 0
+        while self.__board[r][col] == ' ' and r < self.__height - 1:
+            r += 1
+        self.__board[r][col]
+
+    def winsFor(self, ox):
+        r = 0
+        c = 0
+        while self.__board[r][c] == ox:
+            if c != self.__width - 1:
+                c += 1
+            elif r != self.__height - 1:
+                r += 1
+                c = 0
+            else:
+                return False
+        check = [[self.__board[r][c], self.__board[r][c + 1], self.__board[r][c + 2], self.__board[r][c + 3]], \
+                 [self.__board[r][c], self.__board[r][c - 1], self.__board[r][c - 2], self.__board[r][c - 3]], \
+                 [self.__board[r][c], self.__board[r + 1][c], self.__board[r + 2][c], self.__board[r + 3][c]], \
+                 [self.__board[r][c], self.__board[r + 1][c + 1], self.__board[r + 2][c + 2], self.__board[r + 3][c + 3]], \
+                 [self.__board[r][c], self.__board[r + 1][c - 1], self.__board[r + 2][c - 2], self.__board[r + 3][c - 3]]]
+        
+        if r >= 3 and c == 3:
+            if check[0] == [ox, ox, ox, ox] or check[1] == [ox, ox, ox, ox] or check[2] == [ox, ox, ox, ox] or \
+            check[3] == [ox, ox, ox, ox] or check[4] == [ox, ox, ox, ox]:
+                return True
+        elif r >= 3 and c < 3:
+            if check[0] == [ox, ox, ox, ox] or check[2] == [ox, ox, ox, ox] or check[3] == [ox, ox, ox, ox]:
+                return True
+        elif r >= 3 and c > 3:
+            if check[1] == [ox, ox, ox, ox] or check[2] == [ox, ox, ox, ox] or check[4] == [ox, ox, ox, ox]:
+                return True
+        elif r < 3 and c == 3:
+            if check[0] == [ox, ox, ox, ox] or check[1] == [ox, ox, ox, ox]:
+                return True
+        elif r < 3 and c < 3:
+            if check[0] == [ox, ox, ox, ox]:
+                return True
+        elif r < 3 and c > 3:
+            if check[1] == [ox, ox, ox, ox] or check[2] == [ox, ox, ox, ox] or check[3] == [ox, ox, ox, ox]:
+                return True
+        return False
+
+A = Board()
+A.addMove(3, 'X')
+A.addMove(3, 'X')
+A.addMove(3, 'X')
+A.addMove(3, 'X')
+print(A)
+     
+    
+    
+    
+    
+    
+    

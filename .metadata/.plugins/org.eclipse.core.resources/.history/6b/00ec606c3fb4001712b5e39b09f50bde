@@ -1,0 +1,111 @@
+'''
+Created on _______________________
+@author:   _______________________
+Pledge:    _______________________
+
+CS115 - Hw 6
+'''
+# Number of bits for data in the run-length encoding format.
+# The assignment refers to this as k.
+COMPRESSED_BLOCK_SIZE = 5
+
+# Number of bits for data in the original format.
+MAX_RUN_LENGTH = 2 ** COMPRESSED_BLOCK_SIZE - 1
+
+# Do not change the variables above.
+# Write your functions here. You may use those variables in your code.
+
+def countRun(s, c, maxRun, count):
+    """
+    Param s: is a string
+    Param c: is what we're counting
+    Param maxRun: maximum length of run
+    Takes a string returns the number of times
+    that string occurs in that block
+    """
+    if s == '':
+        return 0
+    if count == maxRun:
+        return count
+    if c == '0':
+        if s[0] == '0':
+            return countRun(s[1:], c, maxRun, count + 1 ) 
+        if s[0] == '1':
+            return count
+    if c == '1':
+        if s[0] == '1':
+            return countRun(s[1:], c, maxRun, count + 1)
+        if s[0] == '0':
+            return count
+        
+#y = '0' * 64      
+#print(countRun('0' * 64, '0', MAX_RUN_LENGTH, 0))
+#print(countRun(y[31:], '1', MAX_RUN_LENGTH, 0))
+
+
+def fiveBits(s):
+    if len(s) >= 5:
+        return s
+    else:
+        return fiveBits('0' + s)
+    
+
+     
+def numToBinary(n):
+    '''Precondition: integer argument is non-negative.
+    Returns the string with the binary representation of non-negative integer n.
+    If n is 0, the empty string is returned.'''
+    if n == 0:
+        return ''
+    if n % 2 == 1:
+        return numToBinary(n//2) + '1'
+    return numToBinary(n//2) + '0'    
+
+
+def compress(s):
+    """
+    Return compressed string
+    count the runs in s switching
+    from counting runs of zeroes to counting runs ones
+    return compressed string 
+    """
+    def compress_helper(s,c):
+        if s == '':
+            return ''
+        runlen = countRun(s,c,MAX_RUN_LENGTH, 0)
+        print(runlen)
+        runlenBinary = fiveBits(numToBinary(runlen))
+        print(runlenBinary)
+        nextC = '0'
+        if c =='0':
+            nextC = '1' 
+        return runlenBinary + compress_helper(s[runlen:], nextC)
+    return compress_helper(s,'0')
+
+print(compress('0'))
+
+'''
+def uncompress(s):
+    """
+    param s:
+    in chunks of COMPRESSED_BLOCK_SIZE,
+    convert the binary represenation of a number
+    in that block into that many zeros or ones,
+    switching from decompressing zeros to dompressing
+    ones alternatively
+    return decompressed string
+    """
+    def uncompress_helper(s,c):
+        first5 = s[:COMPRESSED_BLOCK_SIZE]
+        temp = something(first5)
+        return uncompress_helper(s[COMPRESSED_BLOCK_SIZE:], nextC)
+
+
+
+
+def compression(s):
+    """
+    return divide compressed size by original size
+    """
+    pass
+'''

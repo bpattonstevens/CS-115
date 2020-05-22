@@ -1,0 +1,27 @@
+import sys
+
+
+def search(lst, target):
+    first = 0
+    last = len(lst) - 1
+    while first <= last:
+        middle = first + (last - first) // 2
+        if target == lst[middle]:
+            return middle
+        if target < lst[middle]:
+            last = middle - 1
+        else:
+            first = middle + 1
+    return -first - 1
+
+lst = [3, 8, 9, 14, 18, 33, 65, 87, 99]
+
+try:
+    a = 5/0
+    print(a)
+    sys.exit(0)
+except ValueError:
+    print('Bad')
+    sys.exit(1)
+    
+        

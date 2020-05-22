@@ -1,0 +1,16 @@
+'''
+Created on Oct 24, 2017
+I pledge my honor that I have abided by the Stevens Honor System
+
+Brandon Patton
+
+@author: bpatton
+'''
+
+def numToBaseB(N, B):
+    if N == 0:
+        return ''
+    return numToBaseB(N//B, B) + str(N % B)
+
+
+        

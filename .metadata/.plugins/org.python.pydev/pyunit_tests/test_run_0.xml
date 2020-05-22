@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="false" name="Test Run: 0" tests="0" total_time="null"/>
+<test location="C:/Users/bpatton/Documents/CS FALL 2017/CS115B/func_ret_func.py" status="error" test="func_ret_func" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "C:\Users\bpatton\.p2\pool\plugins\org.python.pydev_5.9.2.201708151115\pysrc\_pydev_runfiles\pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "C:\Users\bpatton\Documents\CS FALL 2017\CS115B\func_ret_func.py", line 55
+    return make_len(reduce(max, map(len, words))), words)
+                                                        ^
+SyntaxError: invalid syntax
+ERROR: Module: func_ret_func could not be imported (file: C:/Users/bpatton/Documents/CS FALL 2017/CS115B/func_ret_func.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="CS115B CS115B"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

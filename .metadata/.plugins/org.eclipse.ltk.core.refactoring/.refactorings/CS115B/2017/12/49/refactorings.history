@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;CS115B/hw12 - dan.py&apos; to &apos;hw12.py&apos;" description="Rename resource &apos;hw12 - dan.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="hw12 - dan.py" name="hw12.py" stamp="1512620586636" updateReferences="true"/>
+</session>

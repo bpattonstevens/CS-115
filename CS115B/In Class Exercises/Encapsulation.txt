@@ -1,0 +1,1 @@
+Encapsulation - within the class, we've enclosed all the member variables and methods needed to perform the required functionality.
